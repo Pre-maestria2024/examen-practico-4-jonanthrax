@@ -1,21 +1,31 @@
 def solve_major_muffin(m, n, H, D):
-	dp = [-float('inf')] * (n + 1)
-	dp[0] = 0
+	mod = 10**9 + 7
+	T = sum(D)
+	dp = {0: 0}
 	
 	for i in range(m):
-		h_i, d_i = H[i], D[i]
-		for k in range(n, -1, -1):
-			if dp[k] == -float('inf'):
-				continue
-			new_health = min(k + h_i, n)
-			dp[new_health] = max(dp[new_health], dp[k])
-			if k == n:
-				dp[n] = max(dp[n], dp[k] + d_i)
+		h_val = H[i]
+		d_val = D[i]
+		new_dp = dict(dp)
+		for x, cost in dp.items():
+			x_new = x + h_val
+			if x_new > n:
+				x_new = n
+				pass
+			new_cost = cost + d_val
+			if x_new not in new_dp or new_cost < new_dp[x_new]:
+				new_dp[x_new] = new_cost
 				pass
 			pass
+		dp = new_dp
 		pass
 	
-	return dp[n] if dp[n] != -float('inf') else 0
+	if n in dp:
+		min_cost = dp[n]
+	else:
+		min_cost = float('inf')
+	result = (T - min_cost) % mod
+	return result
 
 def main():
 	m, n = map(int, input().split())
@@ -26,5 +36,5 @@ def main():
 	pass
 if __name__ == '__main__':
 	main()
-	#print(1)
 	pass
+
