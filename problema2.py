@@ -9,7 +9,7 @@ def main():
         u,v = map(int,input().split())
         pass
     
-    print("n:{} | k: {}".forma(n,k))
+    print("n:{} | k: {}".format(n,k))
     print("u")
     print(u)
     print("=="*35)
